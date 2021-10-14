@@ -37,11 +37,22 @@ const ListComponent = () => {
 const ListItem = ({ data, dragHandler }) => {
   return (
     <div className={"item"} {...dragHandler}>
-      <img className={"icon"} src={data.icon} alt={data.title} />
       <div className={"item-details"}>
-        <h5 className={"title"}>{data.title}</h5>
-        <h5 className={"description"}>{data.description}</h5>
-        <h5 className={"create-time"}>{moment(data.created_at).fromNow()}</h5>
+        <img className={"icon"} src={data.icon} alt={data.title} />
+        <div className={"item-info"}>
+          <h5 className={"title"}>{data.title}</h5>
+          <h4 className={"description"}>{data.description}</h4>
+          <div className={"sub-info"}>
+            <span>{moment(data.created_at).fromNow()} - </span>
+            <span>{data.working_type} - </span>
+            <span>{data.country}</span>
+          </div>
+        </div>
+      </div>
+      <div className={"keywords"}>
+        {data.keywords.map((keyword, i) => (
+          <span key={i}>{keyword}</span>
+        ))}
       </div>
     </div>
   );
