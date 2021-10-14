@@ -5,8 +5,23 @@ import "./style.scss";
 import moment from "moment";
 
 const ListComponent = () => {
+  const list = List.get();
+
+  function moveArrayItem(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+    List.save(arr);
+  }
+
   return (
-    <DragDropContext>
+    <DragDropContext
+      onDragEnd={(params) => {
+        const oldPositionIndex = params.source.index;
+        const newPositionIndex = params.destination.index;
+        moveArrayItem(list, oldPositionIndex, newPositionIndex);
+      }}
+    >
       <Droppable droppableId="droppable-1" type="PERSON">
         {(provided, _) => (
           <div
@@ -14,13 +29,14 @@ const ListComponent = () => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {List.get().map((item, i) => (
+            {list.map((item, i) => (
               <Draggable key={i} draggableId={`draggable-${i}`} index={i}>
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef} {...provided.draggableProps}>
                     <ListItem
                       data={item}
-                      dragHandler={provided.dragHandleProps}
+                      dragSnapShot={snapshot}
+                      dragProvided={provided}
                     />
                   </div>
                 )}
@@ -34,9 +50,17 @@ const ListComponent = () => {
   );
 };
 
-const ListItem = ({ data, dragHandler }) => {
+const ListItem = ({ data, dragSnapShot, dragProvided }) => {
   return (
-    <div className={"item"} {...dragHandler}>
+    <div
+      style={{
+        boxShadow: dragSnapShot.isDragging
+          ? "0px 0px 25px 2px rgb(0 0 0 / 50%)"
+          : ""
+      }}
+      className={"item"}
+      {...dragProvided.dragHandleProps}
+    >
       <div className={"item-details"}>
         <img className={"icon"} src={data.icon} alt={data.title} />
         <div className={"item-info"}>
