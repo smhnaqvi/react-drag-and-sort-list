@@ -1,5 +1,9 @@
-const List = {
-  list: [
+import { useState, Fragment, createContext } from "react";
+
+export const ListContext = createContext(null);
+
+const ListProvider = ({ children }) => {
+  const [list, setList] = useState([
     {
       title: "ReactJS",
       description: "Senior Frontend Developer",
@@ -50,16 +54,23 @@ const List = {
       country: "Iran",
       working_type: "Flexible hours"
     }
-  ],
-  get: function () {
+  ]);
+
+  function get() {
     if (localStorage.getItem("list")) {
       return JSON.parse(localStorage.getItem("list"));
     }
-    return this.list;
-  },
-  save: (list) => {
-    localStorage.setItem("list", JSON.stringify(list));
+    return list;
   }
+
+  function save(list) {
+    localStorage.setItem("list", JSON.stringify(list));
+    setList(list);
+  }
+
+  const value = useMemo(() => ({ save, get }), [save, get]);
+
+  return <ListContext.Provider value={value}>{children}</ListContext.Provider>;
 };
 
-export default List;
+export default ListProvider;

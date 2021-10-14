@@ -1,9 +1,12 @@
+
+@import "../../style.scss";
+
 .list{
   .item{
     background: #fff;
     padding: 12px 20px;
     margin: 15px 0;
-    border-radius: 4px;
+    border-radius: $redius-default;
     box-shadow: 0 8px 14px -7px rgba($color: #000000, $alpha: 0.3);
     display: flex;
     align-content: center;
@@ -42,7 +45,7 @@
       span{
         background: #d6fff7;
         padding: 6px 14px;
-        border-radius: 8px;
+        border-radius:$redius-default;
         margin: 0px 0 0px 8px;
         color: #048084;
         font-size: 11px;

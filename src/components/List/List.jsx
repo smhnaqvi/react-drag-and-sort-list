@@ -1,17 +1,16 @@
-import react from "react";
+import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import List from "../../store/ListStore";
 import "./style.scss";
 import moment from "moment";
 
-const ListComponent = () => {
-  const list = List.get();
-
+const ListComponent = ({ updateList, list }) => {
   function moveArrayItem(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
     arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, element);
     List.save(arr);
+    updateList(arr);
   }
 
   return (

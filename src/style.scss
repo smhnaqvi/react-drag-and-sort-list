@@ -3,6 +3,9 @@
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+
+$redius-default: 8px;
+
 body{
   background:#d9fffd;
   .pageTitle{
@@ -13,4 +16,66 @@ body{
     width: 1000px;
     margin:0 auto;
   }
+  .modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(3px);
+    display: flex;
+    background: rgba($color: #000000, $alpha: 0.4);
+    .content{
+      width: 500px;
+      background: white;
+      min-height: fit-content;
+      margin: auto auto;
+      padding: 10px;
+      box-shadow: 0 8px 14px -7px rgba($color: #000000, $alpha: 0.3);
+      border-radius: $redius-default;
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+
+      .create-job-offer{
+        .form-inputs{
+          .selected-tags{
+            span{
+              background: #d6fff7;
+              padding: 6px 14px;
+              border-radius:$redius-default;
+              margin: 0px 0 0px 8px;
+              color: #048084;
+              font-size: 11px;
+            }
+          }
+          img.icon{
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            background: black;
+          }
+        }
+      }
+    }
+  }
+
+  .input{
+
+  }
+
+  .btn{
+    border: none;
+    padding: 5px; 
+    margin:5px;
+    border-radius: $redius-default;
+  }
+  .btn[type='reset']{
+      background:red
+  }
+  .btn[type='submit']{
+      background:green
+  }
+
 }
