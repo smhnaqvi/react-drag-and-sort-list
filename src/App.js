@@ -1,21 +1,21 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import AddToList from "./components/List/AddToList";
 import ListComponent from "./components/List/List";
-import ListProvider from "./store/ListStore";
-import useList from "./store/List.Hook";
+import { ListProvider } from "./store/ListStore";
 
 import "./style.scss";
 
 export default function App() {
-  // const [list] = useList();
-
   return (
     <div className={"container"}>
       <h5 className="pageTitle">list</h5>
-      {/* <button onClick={handelModal}>Open Modal</button> */}
-      {/* <ListProvider.Provider> */}
-      {/* show job list  */}
-      {/* <ListComponent /> */}
-      {/* </ListProvider.Provider> */}
+      <ListProvider>
+        {/* add to list modal */}
+        <AddToList />
+
+        {/* show job list  */}
+        <ListComponent />
+      </ListProvider>
     </div>
   );
 }

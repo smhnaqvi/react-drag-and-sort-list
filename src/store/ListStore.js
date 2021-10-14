@@ -1,8 +1,10 @@
-import { useState, Fragment, createContext } from "react";
+import { useState, createContext } from "react";
 
+// create new context for stoer job list and manage chnage states
 export const ListContext = createContext(null);
 
-const ListProvider = ({ children }) => {
+// list provider
+export const ListProvider = ({ children }) => {
   const [list, setList] = useState([
     {
       title: "ReactJS",
@@ -68,9 +70,9 @@ const ListProvider = ({ children }) => {
     setList(list);
   }
 
-  const value = useMemo(() => ({ save, get }), [save, get]);
-
-  return <ListContext.Provider value={value}>{children}</ListContext.Provider>;
+  return (
+    <ListContext.Provider value={{ list, save, get }}>
+      {children}
+    </ListContext.Provider>
+  );
 };
-
-export default ListProvider;

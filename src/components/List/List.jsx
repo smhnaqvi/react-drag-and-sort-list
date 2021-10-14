@@ -4,13 +4,15 @@ import List from "../../store/ListStore";
 import "./style.scss";
 import moment from "moment";
 
-const ListComponent = ({ updateList, list }) => {
+import useList from "../../store/List.Hook";
+
+const ListComponent = () => {
+  const { get, save } = useList();
   function moveArrayItem(arr, fromIndex, toIndex) {
     var element = arr[fromIndex];
     arr.splice(fromIndex, 1);
     arr.splice(toIndex, 0, element);
-    List.save(arr);
-    updateList(arr);
+    save(arr);
   }
 
   return (
@@ -18,7 +20,7 @@ const ListComponent = ({ updateList, list }) => {
       onDragEnd={(params) => {
         const oldPositionIndex = params.source.index;
         const newPositionIndex = params.destination.index;
-        moveArrayItem(list, oldPositionIndex, newPositionIndex);
+        moveArrayItem(get(), oldPositionIndex, newPositionIndex);
       }}
     >
       <Droppable droppableId="droppable-1" type="PERSON">
@@ -28,7 +30,7 @@ const ListComponent = ({ updateList, list }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {list.map((item, i) => (
+            {get().map((item, i) => (
               <Draggable key={i} draggableId={`draggable-${i}`} index={i}>
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef} {...provided.draggableProps}>
